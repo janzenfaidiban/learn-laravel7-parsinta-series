@@ -15,9 +15,11 @@
     <p>{{ $post->body }}</p>
     <div>
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-link btn-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
-        Delete
-      </button>
+      @auth
+        <button type="button" class="btn btn-link btn-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
+          Delete
+        </button>
+      @endauth
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

@@ -6,6 +6,13 @@ use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth')->except([
+    //             'index', 'show',
+    //         ]);
+    // }
+
     public function index()
     {
         return view('posts.index', [
@@ -39,8 +46,8 @@ class PostController extends Controller
         session()->flash('success', 'The post was created');
         return redirect('posts');
 
-        session()->flash('error', 'The post was created');
-        return back();
+        // session()->flash('error', 'The post was created');
+        // return back();
     }
 
     public function edit(Post $post)
