@@ -40,7 +40,7 @@ class PostController extends Controller
         $attr['slug'] = \Str::slug(request('title'));
         $attr['category_id'] = request('category');
         // create new post
-        $post = Post::create($attr);
+        $post = auth()->user()->posts()->create($attr);
         $post->tags()->attach(request('tags'));
 
         session()->flash('success', 'The post was created');
@@ -70,9 +70,18 @@ class PostController extends Controller
     }
     public function destroy(Post $post)
     {
-        $post->tags()->detach();
-        $post->delete();
-        session()->flash('success', 'The post was destroyed');
-        return redirect('posts');
+
+        if (auth()->user()->is($post->author)) {
+            $post->tags()->detach();
+            $post->delete();
+            session()->flash('success', 'The post was destroyed');
+            return redirect('posts');
+        } else {
+            
+            session()->flash("error", "It wasnt your post");
+            return redirect('posts');
+        }
+
+        
     }
 }
